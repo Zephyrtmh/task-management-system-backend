@@ -618,12 +618,19 @@ public class TaskService {
         String email = accountRepository.getEmail(username);
         System.out.println("email " + email);
 
-        if(task.getTaskState().toLowerCase().equals("done")){
-            emailService.sendEmail(email, "Promote task " + req.get("taskId").toString() +" to done", "Promote task " + req.get("taskId").toString() +" to done");
-
+        if( email == null || email.equals("")) {
             response.put("success", true);
-            return response;
+            response.put("message", "sender's email not found");
         }
+        else {
+            if(task.getTaskState().toLowerCase().equals("done")) {
+                emailService.sendEmail(email, "Promote task " + req.get("taskId").toString() +" to done", "Promote task " + req.get("taskId").toString() +" to done");
+
+                response.put("success", true);
+                return response;
+            }
+        }
+        
 
         response.put("success", false);
         return response;
