@@ -95,18 +95,18 @@ functional_testing:
       echo "DELETE FROM tmsappdb.accgroup WHERE groupName='project lead';" | ssh l1ds@192.168.0.2 "mysql -u $($env:L1DS_SQL_USER) -p$($env:L1DS_SQL_PASSWORD)"
     - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" C:\Users\l1ds\group1\$($env:CI_COMMIT_REF_NAME)\test\test.ps1
 
-clear_docker:
-  stage: clear
-  script:
-    # stop docker container, remove <internal release label> docker container and remove <internal release label> docker image 
-    - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "docker stop $($env:CI_COMMIT_REF_NAME)"
-    - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "docker rm $($env:CI_COMMIT_REF_NAME)"
-    - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "docker rmi $($env:CI_COMMIT_REF_NAME)"
-  allow_failure: true
+# clear_docker:
+#   stage: clear
+#   script:
+#     # stop docker container, remove <internal release label> docker container and remove <internal release label> docker image 
+#     - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "docker stop $($env:CI_COMMIT_REF_NAME)"
+#     - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "docker rm $($env:CI_COMMIT_REF_NAME)"
+#     - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "docker rmi $($env:CI_COMMIT_REF_NAME)"
+#   allow_failure: true
 
-clear_folders:
-  stage: clear
-  script:
-    # delete the l1ds/group1/<internal release label> folder
-    - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "Remove-Item -Path 'C:\Users\l1ds\group1\$($env:CI_COMMIT_REF_NAME)' -Recurse -Force;"
-  allow_failure: true
+# clear_folders:
+#   stage: clear
+#   script:
+#     # delete the l1ds/group1/<internal release label> folder
+#     - ssh "$($env:REMOTE_USER)@$($env:REMOTE_HOST)" "Remove-Item -Path 'C:\Users\l1ds\group1\$($env:CI_COMMIT_REF_NAME)' -Recurse -Force;"
+#   allow_failure: true
